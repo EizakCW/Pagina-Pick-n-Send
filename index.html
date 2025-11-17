@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick n' Send - Descarga la App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #8BC34A 0%, #689F38 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animación de paquetes flotantes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes floatReverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        .background-images {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .floating-package {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: brightness(0) invert(1);
+        }
+
+        .package-1 {
+            top: 10%;
+            left: 5%;
+            background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .package-2 {
+            top: 20%;
+            right: 8%;
+            background-image: url('https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=400');
+            animation: floatReverse 7s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .package-3 {
+            bottom: 15%;
+            left: 8%;
+            background-image: url('https://images.unsplash.com/photo-1607166452427-7e4477079cb9?w=400');
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .package-4 {
+            bottom: 25%;
+            right: 5%;
+            background-image: url('https://images.unsplash.com/photo-1605902394069-ff2ae2430e62?w=400');
+            animation: floatReverse 6.5s ease-in-out infinite;
+            animation-delay: 1.5s;
+        }
+
+        .package-5 {
+            top: 50%;
+            left: 2%;
+            background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400');
+            animation: float 7.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .package-6 {
+            top: 40%;
+            right: 3%;
+            background-image: url('https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=400');
+            animation: floatReverse 7s ease-in-out infinite;
+            animation-delay: 2.5s;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 1000px;
+            width: 90%;
+            margin: 40px auto;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #8BC34A 0%, #7CB342 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* ⬇️ AQUÍ PUEDES CAMBIAR LA IMAGEN DEL LOGO ⬇️ */
+        .logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 20px;
+        }
+
+        .tagline {
+            color: white;
+            font-size: 24px;
+            font-weight: 300;
+            margin-top: 20px;
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .download-section {
+            display: flex;
+            justify-content: space-around;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .download-card {
+            flex: 1;
+            min-width: 280px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .download-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139, 195, 74, 0.4);
+            border-color: #8BC34A;
+        }
+
+        .platform-icon {
+            margin-bottom: 20px;
+        }
+
+        .platform-icon svg {
+            transition: transform 0.3s ease;
+        }
+
+        .download-card:hover .platform-icon svg {
+            transform: scale(1.1);
+        }
+
+        .platform-name {
+            color: #333;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .platform-subtitle {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #8BC34A;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(139, 195, 74, 0.3);
+        }
+
+        .download-btn:hover {
+            background: #7CB342;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(139, 195, 74, 0.5);
+        }
+
+        .video-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .video-container {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+        }
+
+        .video-placeholder {
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            border-radius: 15px;
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 18px;
+            border: 2px dashed #8BC34A;
+            overflow: hidden;
+        }
+
+        .video-placeholder iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .background-images {
+                opacity: 0.08;
+            }
+
+            .floating-package {
+                width: 80px;
+                height: 80px;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            .download-section {
+                gap: 20px;
+            }
+
+            .video-placeholder {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Paquetes flotantes de fondo -->
+    <div class="background-images">
+        <div class="floating-package package-1"></div>
+        <div class="floating-package package-2"></div>
+        <div class="floating-package package-3"></div>
+        <div class="floating-package package-4"></div>
+        <div class="floating-package package-5"></div>
+        <div class="floating-package package-6"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <!-- ⬇️ CAMBIA EL src= POR LA URL DE TU LOGO ⬇️ -->
+            <img src="https://picknsend.com/wp-content/uploads/thegem-logos/logo_82958f48c2957633a34f55d7d6d87caa_1x.png" alt="Pick n' Send Logo" class="logo">
+            <div class="tagline">Lo que pides por internet, lo recoges aquí en El Cedro.</div>
+        </div>
+
+        <div class="content">
+            <h2>Descarga la App</h2>
+            <p class="subtitle">Envía y rastrea tus paquetes desde tu móvil</p>
+
+            <div class="download-section">
+                <div class="download-card">
+                    <div class="platform-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="#333">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
+                    </div>
+                    <div class="platform-name">App Store</div>
+                    <p class="platform-subtitle">Disponible para iPhone y iPad<br>Requiere iOS 12.0 o superior</p>
+                    <!-- ⬇️ COLOCA AQUÍ TU LINK DE APP STORE ⬇️ -->
+                    <a href="https://apps.apple.com/us/app/pick-n-send/id924940347" class="download-btn">Descargar aquí</a>
+                </div>
+
+                <div class="download-card">
+                    <div class="platform-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="#3DDC84">
+                            <path d="M1.5 6.09v11.82c0 1.16.94 2.09 2.09 2.09h.09c.22-.68.68-1.27 1.27-1.62L6.36 20H3.59c-.58 0-1.05-.47-1.05-1.05V5.05c0-.58.47-1.05 1.05-1.05h16.82c.58 0 1.05.47 1.05 1.05v13.9c0 .58-.47 1.05-1.05 1.05h-2.77l1.41-1.62c.59.35 1.05.94 1.27 1.62h.09c1.16 0 2.09-.94 2.09-2.09V6.09c0-1.16-.94-2.09-2.09-2.09H3.59c-1.15 0-2.09.94-2.09 2.09z"/>
+                            <path d="M15.95 2.5L12 6.45 8.05 2.5 6.64 3.91l3.95 3.95-3.95 3.95 1.41 1.41L12 9.27l3.95 3.95 1.41-1.41-3.95-3.95 3.95-3.95z"/>
+                            <path d="M12 13.86l-5.59 5.59 1.41 1.41 4.18-4.18 4.18 4.18 1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <div class="platform-name">Google Play</div>
+                    <p class="platform-subtitle">Disponible para dispositivos Android<br>Requiere Android 6.0 o superior</p>
+                    <!-- ⬇️ COLOCA AQUÍ TU LINK DE GOOGLE PLAY ⬇️ -->
+                    <a href="https://play.google.com/store/apps/details?id=com.barolit.picknsend&hl=en_US" class="download-btn">Descargar aquí</a>
+                </div>
+            </div>
+
+            <div class="video-section">
+                <h2>¿Cómo funciona?</h2>
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <!-- ⬇️ COLOCA AQUÍ TU VIDEO DE YOUTUBE O VIMEO ⬇️ -->
+                        <!-- Descomenta y reemplaza el src con tu video -->
+                        <!-- <iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" allowfullscreen></iframe> -->
+                        <p>📹 Video tutorial para descargar y registrarte<br><br>
+                        <small>Reemplaza este texto con tu video en el código HTML</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Pick n' Send - Courier & Cargo. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para efectos adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto parallax suave en los paquetes flotantes
+            document.addEventListener('mousemove', function(e) {
+                const packages = document.querySelectorAll('.floating-package');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                packages.forEach((pkg, index) => {
+                    const speed = (index + 1) * 0.5;
+                    const xMove = (x - 0.5) * speed * 20;
+                    const yMove = (y - 0.5) * speed * 20;
+                    pkg.style.transform = `translate(${xMove}px, ${yMove}px)`;
+                });
+            });
+
+            // Animación de entrada para las cards
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            const cards = document.querySelectorAll('.download-card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
